@@ -13,6 +13,11 @@
       { match: "ENG vs PAK", score: "ENG 310/7 (50)" }
     ];
   });
+
+  function goToPlayerProfile(player: string) {
+    // Navigate with query parameter ?name=<player>
+    window.location.href = `/player-profile?name=${encodeURIComponent(player)}`;
+  }
 </script>
 
 <!-- Banner Header -->
@@ -43,12 +48,14 @@
   <section class="card your-players curtain delay">
     <h2>⭐ Your Players</h2>
     {#if personalizedPlayers.length > 0}
-      <div class="player-carousel">
-        {#each personalizedPlayers as p}
-          <div class="player-card">
-            {p}
-          </div>
-        {/each}
+      <div class="player-carousel-wrapper">
+        <div class="player-carousel">
+          {#each personalizedPlayers as p}
+            <div class="player-card" on:click={() => goToPlayerProfile(p)}>
+              {p}
+            </div>
+          {/each}
+        </div>
       </div>
     {:else}
       <p>
@@ -207,12 +214,15 @@
     font-weight: 700;
     color: var(--brand-red);
   }
+
+  .player-carousel-wrapper {
+    overflow-x: auto;
+    padding-bottom: 10px; /* space for scrollbar */
+  }
   
   .player-carousel {
     display: flex;
     gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 6px;
     scroll-snap-type: x mandatory;
   }
   
@@ -227,6 +237,9 @@
     min-width: 140px;
     text-align: center;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
   
   .player-card:hover {
