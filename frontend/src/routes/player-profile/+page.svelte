@@ -388,4 +388,35 @@
     font-size: 0.9rem;
     line-height: 1.4;
   }
+  
+@media (max-width: 768px) {
+  div[style*="display:flex; gap:8px;"] {
+    flex-direction: column !important;
+  }
+  .search-btn,
+  .toggle-btn {
+    width: 100% !important;
+  }
+
+  /* Tabs and action buttons stack */
+  div[style*="display:flex; gap:12px;"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  div[style*="margin-left:auto; display:flex; gap:8px;"] {
+    margin-left: 0 !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+  .pdf-btn {
+    flex: 1;
+  }
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
 </style>

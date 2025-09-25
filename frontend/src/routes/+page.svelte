@@ -247,14 +247,17 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
-  /* Mobile first adjustments */
   @media (max-width: 768px) {
     .home-grid {
       grid-template-columns: 1fr; 
     }
-    
+
     .your-players {
       min-height: 180px;
     }
+
+    .score-card, .player-card { 
+      font-size: 0.9rem; 
+      padding: 12px; }
   }
 </style>
