@@ -17,7 +17,7 @@
     { href: '/player-profile', label: 'Player Profile' },
     { href: '/compare', label: 'Compare' },
     { href: '/top-performers', label: 'Top Performers' },
-    { href: '/player-filter', label: 'Explore Players' }
+    { href: '/explore', label: 'Explore Players' }
   ];
 
   const normalize = (p: string) => {
