@@ -24,10 +24,12 @@ CrickStatX is a cricket analytics dashboard that provides insights, comparisons,
 cd CrickStatX/backend
 pip install -r requirements.txt
 uvicorn main:app --reload
+
 3. Setup frontend
 cd ../frontend
 npm install
 npm run dev
+
 4. Open browser at http://localhost:5173 (or your configured port)
 
 # Project Structure
@@ -37,5 +39,4 @@ CrickStatX/
 ├── datasets/       # Raw CSVs & data files  
 └── README.md       # Project documentation  
 
-
-
+Made with ❤️ for cricket enthusiasts.
