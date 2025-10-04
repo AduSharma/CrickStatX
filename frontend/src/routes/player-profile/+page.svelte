@@ -125,11 +125,12 @@
     setTimeout(() => (message = ''), 2000);
   }
 
+  // ✅ Fixed exportPDF with multi-page support
   async function exportPDF() {
     const element = document.getElementById('export-section');
     if (!element) return;
     try {
-      const canvas = await html2canvas(element);
+      const canvas = await html2canvas(element, { scale: 2 });
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
 
@@ -140,11 +141,24 @@
       pdf.setTextColor(220, 38, 38); // red
       pdf.text(`- ${selectedPlayer || 'Player'} (${activeTab})`, 45, 15);
 
-      const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth() - 20;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'PNG', 10, 25, pdfWidth, pdfHeight);
+      let heightLeft = pdfHeight;
+      let position = 25;
+
+      // First page
+      pdf.addImage(imgData, 'PNG', 10, position, pdfWidth, pdfHeight);
+      heightLeft -= pdf.internal.pageSize.getHeight() - 30;
+
+      // Extra pages if content overflows
+      while (heightLeft > 0) {
+        position = heightLeft - pdfHeight + 25;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 10, position, pdfWidth, pdfHeight);
+        heightLeft -= pdf.internal.pageSize.getHeight() - 30;
+      }
+
       pdf.save(`${selectedPlayer || 'player'}_${activeTab || 'profile'}.pdf`);
     } catch (err) {
       console.error('PDF export error', err);
@@ -418,5 +432,4 @@
     white-space: nowrap;
   }
 }
-
 </style>
